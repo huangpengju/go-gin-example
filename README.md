@@ -13,6 +13,7 @@
 * com    `go get -u github.com/unknwon/com`
 * gorm   `go get -u github.com/jinzhu/gorm`
 * mysql  `go get -u github.com/go-sql-driver/mysql`
+* validation `go get -u github.com/astaxie/beego/validation`
 
 ### 项目目录
 ```
@@ -31,6 +32,8 @@ go-gin-example/
 │   └── util                    // 工具包
 │       └── pagination.go           // 比如：获取分页页码（即跳过多少条数据）
 ├── routers                 // 路由逻辑处理
+│   │   └── v1
+│   │       └── tag.go
 │   └── router.go               // 路由规则
 ├── runtime                 // 应用运行时数据
 └── main.go                 
