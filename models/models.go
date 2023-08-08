@@ -69,6 +69,7 @@ func init() {
 		// tablePrefix 是 app.ini 中设置的 blog_
 		return tablePrefix + defaultTableName
 	}
+	// 建表的时候表名字不加s
 	// 全局禁用表名复数
 	db.SingularTable(true) // 如果设置为 true, `User` 的默认表名为`user`，使用`TableName`设置的表名不受影响
 	// 启用 Logger ,显示详细日志
