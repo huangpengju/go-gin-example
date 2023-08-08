@@ -6,8 +6,15 @@
 * 讲解 Demo 所涉及的知识点。
 
 ## 介绍和初始化项目
+### 项目依赖
+* go     `安装 Go`
+* gin    `go get -u github.com/gin-gonic/gin`
+* ini    `go get -u github.com/go-ini/ini`
+* com    `go get -u github.com/unknwon/com`
+* gorm   `go get -u github.com/jinzhu/gorm`
+* mysql  `go get -u github.com/go-sql-driver/mysql`
 
-### 初始化项目目录
+### 项目目录
 ```
 go-gin-example/
 ├── conf                    // 用于存储配置文件
