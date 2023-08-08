@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"go-gin-example/pkg/setting"
-	routers "go-gin-example/routes"
+	"go-gin-example/routers"
 	"net/http"
 )
 
