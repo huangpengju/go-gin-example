@@ -2,6 +2,7 @@
 // 包中 ini 用来解析 app.ini 配置文件
 // 包中 LoadBase 加载 app.ini 文件中默认分区中的基础 RUN_MODE 信息
 // 包中 LoadServe 加载 app.ini 文件中 server 分区中的 HTTP_PORT（端口）、读写超时时间
+// 包中 LoadApp 加载 app.ini 文件中 app 分区中的 PAGE_SIZE(每页数量) 和 JWT_SECRET(Json_Web_Token Secret)
 package setting
 
 import (
@@ -23,7 +24,7 @@ var (
 	ReadTimeout  time.Duration
 	WriteTimeout time.Duration
 
-	// 定义全局变量，存放分页信息（每页显示多少条）
+	// 定义全局变量，存放分页信息（PageSize 每页显示多少条）
 	PageSize  int
 	JwtSecret string
 )
