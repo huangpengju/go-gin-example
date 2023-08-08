@@ -9,6 +9,7 @@ import (
 
 func GetPage(c *gin.Context) int {
 	result := 0
+	// URL 参数通过 DefaultQuery 或 Query 方法获取
 	page, _ := com.StrTo(c.Query("page")).Int()
 	if page > 0 {
 		result = (page - 1) * setting.PageSize

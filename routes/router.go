@@ -12,6 +12,7 @@ func InitRouter() *gin.Engine {
 
 	r.Use(gin.Recovery())
 
+	// 设置模式 为 debug
 	gin.SetMode(setting.RunMode)
 
 	r.GET("/test", func(c *gin.Context) {
