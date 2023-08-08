@@ -1,5 +1,5 @@
 // util 包是工具包，拉取了 com 的依赖包 go get -u github.com/unknwon/com
-// 包中 GetPage 获取分页页码（跳过多少条数据）
+// 包中 GetPage 获取分页页码（即跳过多少条数据）
 package util
 
 import (
