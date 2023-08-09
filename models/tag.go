@@ -45,3 +45,21 @@ func GetTagTotal(maps interface{}) (count int) {
 	// SELECT count(*) FROM tags WHERE name=? AND state=?
 	return
 }
+
+// ExistTagByName 查询标签是否存在
+// 参数 name 是标签名
+func ExistTagByName(name string) bool {
+	var tag Tag
+	db.Select("id").Where("name = ?", name).First(&tag)
+	return tag.ID > 0
+}
+
+// AddTag 新增标签
+func AddTag(name string, state int, createdBy string) bool {
+	db.Create(&Tag{
+		Name:      name,
+		State:     state,
+		CreatedBy: createdBy,
+	})
+	return true
+}

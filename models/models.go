@@ -53,7 +53,7 @@ func init() {
 
 	// gorm.Open() 获取包含当前数据库连接的信息
 	// Sprintf根据 format 参数生成格式化的字符串并返回该字符串。
-	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?chatset=utf8&parseTime=True&loc=Local",
+	db, err = gorm.Open(dbType, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		user,
 		password,
 		host,
