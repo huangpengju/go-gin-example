@@ -10,6 +10,9 @@ import (
 // InitRouter 初始化路由
 // 接收配置好中间件的路由
 func InitRouter() *gin.Engine {
+	// 设置模式为 debug  // 	除了 debug 还有 test 和 release 模式
+	gin.SetMode(setting.RunMode)
+
 	//  New返回一个新的空白引擎实例，没有附加任何中间件。
 	// 创建一个没有任何默认中间件的路由
 	r := gin.New()
@@ -23,9 +26,6 @@ func InitRouter() *gin.Engine {
 	// Recovery 中间件会 recovery 任何 panic。如果有 panic 的话，会写入 500.
 	// 给 r 使用() Recover 中间件
 	r.Use(gin.Recovery()) // 给 r 注册一个全局中间件
-
-	// 设置模式为 debug  // 	除了 debug 还有 test 和 release 模式
-	gin.SetMode(setting.RunMode)
 
 	// 认证路由组
 	//
