@@ -112,3 +112,11 @@ func (tag *Tag) BeforeUpdate(scope *gorm.Scope) error {
 	scope.SetColumn("modifiedOn", time.Now().Unix())
 	return nil
 }
+
+// DeleteTag 删除指定id的tag
+// 参数id 是查询条件
+// 返回值是ture
+func DeleteTag(id int) bool {
+	db.Where("id = ?", id).Delete(&Tag{})
+	return true
+}

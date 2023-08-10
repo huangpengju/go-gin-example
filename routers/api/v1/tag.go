@@ -158,7 +158,35 @@ func EditTag(c *gin.Context) {
 	})
 }
 
-// 删除文章标签
+// DeleteTag 删除文章标签
 func DeleteTag(c *gin.Context) {
+	// 获取api参数 用 c.Param
+	id := com.StrTo(c.Param("id")).MustInt()
+
+	// 准备验证
+	valid := validation.Validation{}
+	valid.Min(id, 1, "id").Message("ID必须大于1")
+
+	// 准备相应code
+	code := e.INVALID_PARAMS // 表示无效参数
+	// 检查id是否通过验证,通过则改变code
+	if !valid.HasErrors() {
+		// 通过验证
+		// 改变code
+		code = e.SUCCESS // 表示ok
+		// 查询 tag 是否存在
+		if models.ExisTagByID(id) {
+			// 存在则删除
+			models.DeleteTag(id)
+		} else {
+			// 不存在 tag
+			code = e.ERROR_NOT_EXIST_TAG // 修改code 表示tag不存在
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,
+		"msg":  e.GetMsg(code),
+		"data": make(map[string]string),
+	})
 
 }
