@@ -1,8 +1,14 @@
 // models 包处理 tag 模型与数据库的映射
 // 包中 GetTags 获取多个文章标签 Tag
 // 包中 GetTagTotal 用于获取 Tag 的数量
+//
 // 包中 ExistTagByName 用于根据名称查询标签是否存在
 // 包中 AddTag 新增标签
+// 包中 BeforeCreate 新增标签的回调方法
+//
+// 包中 ExisTagById 通过 id 查询tag是否存在
+// 包中 EditTag 通过id,修改数据
+// 包中 BeforeUpdate 更新标签的回调方法
 package models
 
 import (
@@ -83,8 +89,26 @@ func (tag *Tag) BeforeCreate(scope *gorm.Scope) error {
 	return nil
 }
 
+// ExisTagById 通过 id 查询tag是否存在
+// 参数id 是查询条件
+// 返回值是 true 或 false
+func ExisTagByID(id int) bool {
+	var tag Tag
+	db.Select("id").Where("id = ?", id).First(&tag)
+	return tag.ID > 0
+}
+
+// EditTag 通过id,修改数据
+// 参数id是查询条件
+// 参数data是修改数据
+// 返回值是true
+func EditTag(id int, data interface{}) bool {
+	db.Model(&Tag{}).Where("id=?", id).Updates(data)
+	return true
+}
+
 // BeforeUpdate 更新标签的回调方法
-func (tag *Tag) BeforeUpdate(scope gorm.Scope) error {
+func (tag *Tag) BeforeUpdate(scope *gorm.Scope) error {
 	scope.SetColumn("modifiedOn", time.Now().Unix())
 	return nil
 }

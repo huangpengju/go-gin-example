@@ -96,9 +96,66 @@ func AddTag(c *gin.Context) {
 	})
 }
 
-// 修改文章标签
+// EditTag 修改文章标签
 func EditTag(c *gin.Context) {
+	// c.Parm 获取参数（api 参数通过Context的Param方法来获取）
+	id := com.StrTo(c.Param("id")).MustInt() // 获取标签的id， 并 string 转 int
+	// c.Query 获取参数（URL 参数通过 DefaultQuery 或 Query 方法获取）
+	name := c.Query("name")              // 获取标签的 name
+	modifiedBy := c.Query("modified_by") // 获取修改人
 
+	// 准备验证
+	valid := validation.Validation{}
+	// 声明一个状态 -1
+	var state int = -1
+	// 获取参数 state ，如果不为空，则获取，并覆盖 -1，参数为空时，state 依旧是-1
+	if arg := c.Query("state"); arg != "" {
+		// state 不为空，string 转 int
+		state = com.StrTo(arg).MustInt()
+		// 验证 state 的值是不是 0 或 1，不是则抛出错误
+		valid.Range(state, 0, 1, "state").Message("状态只允许0或1")
+	}
+	// 验证id、修改人、name
+	valid.Required(id, "id").Message("ID不能为空")
+	valid.Required(modifiedBy, "modified_by").Message("修改人不能为空")
+	valid.MaxSize(modifiedBy, 100, "modified_by").Message("修改人最长为100字符")
+	valid.MaxSize(name, 100, "name").Message("名称最长为100字符")
+
+	// 声明一个 code 表示无效参数，
+	code := e.INVALID_PARAMS
+	// 判断是否通过表单验证，通过则会改变 code,通过则不改变
+	if !valid.HasErrors() {
+		// 上面的表单验证没有错误，改变 code 表示 ok
+		code = e.SUCCESS
+		// 根据id查询tag是否存在
+		if models.ExisTagByID(id) {
+			// 如果tag存在
+			// 声明一个空的映射，用于存在更新的数据
+			data := make(map[string]interface{})
+			// 修改人
+			data["modified_by"] = modifiedBy
+			// 标签名不为空则更新，为空就不更新
+			if name != "" {
+				data["name"] = name
+			}
+			// state不为-1 则更新
+			if state != -1 {
+				data["state"] = state
+			}
+			// 准备好了条件：id
+			// 修改内容 modified_by、name、state
+			// 开始修改
+			models.EditTag(id, data)
+		} else {
+			// 如果tag不存在 ,改变 code 表示该标签不存在
+			code = e.ERROR_NOT_EXIST_TAG
+		}
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code": code,                    //返回code
+		"msg":  e.GetMsg(code),          // 返回错误码表示的消息
+		"data": make(map[string]string), // 返回空的data
+	})
 }
 
 // 删除文章标签
