@@ -45,7 +45,8 @@ func GetTags(c *gin.Context) {
 	// 使用 e 包中的错误编码
 	code := e.SUCCESS
 	// 获取 Tag 列表
-	// util.GetPage(c) 表示分页时跳过多少条数据
+	// util.GetPage(c) 表示分页时跳过多少条数据，setting.PageSize 是取出多少条数据
+	// maps 存放查询参数
 	data["lists"] = models.GetTags(util.GetPage(c), setting.PageSize, maps)
 	// 获取 Tag 总数
 	data["total"] = models.GetTagTotal(maps)
@@ -61,10 +62,13 @@ func GetTags(c *gin.Context) {
 
 // AddTag 新增文章标签
 func AddTag(c *gin.Context) {
+	// 获取URL中的参数
 	name := c.Query("name")
 	state := com.StrTo(c.DefaultQuery("state", "0")).MustInt() // string 转 int
 	createdBy := c.Query("created_by")
 
+	// beego-validation  beego 的表单验证库
+	// 需引入 validation 第三方包
 	valid := validation.Validation{}
 	valid.Required(name, "name").Message("名称不能为空")
 	valid.MaxSize(name, 100, "name").Message("名称最长为100")
@@ -75,8 +79,10 @@ func AddTag(c *gin.Context) {
 	// 请求参数错误
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
+		// ExistTagByName() 查询标签是否存在，不存在返回 false
 		if !models.ExistTagByName(name) {
 			code = e.SUCCESS
+			// // AddTag() 新增标签
 			models.AddTag(name, state, createdBy)
 		} else {
 			// 错误 已存在该标签名称
