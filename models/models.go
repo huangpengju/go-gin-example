@@ -60,7 +60,7 @@ func init() {
 		dbName))
 
 	if err != nil {
-		log.Println(err)
+		log.Println("数据库连接错误=", err)
 	}
 	// 由于 type User struct {} // 默认表名是`users`
 	// 更改默认表名
