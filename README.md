@@ -22,7 +22,8 @@ go-gin-example/
 │   └── app.ini                 // ini 文件
 ├── middleware              // 应用中间件
 ├── models                  // 应用数据库模型
-│   └── models.go               // 连接数据库(models的初始化使用)
+│   ├── models.go               // 连接数据库(models的初始化使用)
+│   └── tag.go					// 标签的models逻辑
 ├── pkg                     // 第三方包
 │   ├── e                       // API 错误码包
 │   │   ├── code.go                 // 错误码常量
@@ -33,7 +34,8 @@ go-gin-example/
 │       └── pagination.go           // 比如：获取分页页码（即跳过多少条数据）
 ├── routers                 // 路由逻辑处理
 │   │   └── v1
-│   │       └── tag.go
+│   │       ├── article.go		// 文章路由逻辑
+│   │       └── tag.go			// 标签路由逻辑
 │   └── router.go               // 路由规则
 ├── runtime                 // 应用运行时数据
 └── main.go                 
