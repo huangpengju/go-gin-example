@@ -33,12 +33,6 @@ func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
 	return nil
 }
 
-// BeforeUpdate 删除时的回调方法
-func (article *Article) BeforeDelete(scope *gorm.Scope) error {
-	scope.SetColumn("DeletedOn", time.Now().Unix())
-	return nil
-}
-
 /*
 	用不了，后续研究
 
@@ -135,6 +129,13 @@ func AddArticle(data map[string]interface{}) bool {
 // 参数id 是查询条件
 // 返回值 true
 func DeleteArticle(id int) bool {
-	db.Where("id = ?", id).Delete(Article{})
+	db.Where("id = ?", id).Delete(&Article{})
 	return true
+}
+
+// 功能没有实现
+// BeforeUpdate 删除时的回调方法
+func (article *Article) BeforeDelete(scope *gorm.Scope) error {
+	scope.SetColumn("DeletedOn", time.Now().Unix())
+	return nil
 }
