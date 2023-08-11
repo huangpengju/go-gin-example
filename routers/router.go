@@ -59,7 +59,7 @@ func InitRouter() *gin.Engine {
 		apiv1.PUT("/articles/:id", v1.EditArticle) // 为路由注册中间件
 
 		// 删除指定文章
-		apiv1.DELETE("/articles/:id", v1.DeleteArticle)
+		apiv1.DELETE("/articles/:id", v1.DeleteArticle) // 为路由注册中间件
 	}
 	// r.GET("/test", func(c *gin.Context) {
 	// 	c.JSON(200, gin.H{
