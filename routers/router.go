@@ -47,16 +47,16 @@ func InitRouter() *gin.Engine {
 
 		// 文章接口定义和编写
 		// 获取文章列表
-		apiv1.GET("/articles", v1.GetArticles)
+		apiv1.GET("/articles", v1.GetArticles) // 获取文章列表注册中间件
 
 		// 获取指定文章
-		apiv1.GET("/articles/:id", v1.GetArticle)
+		apiv1.GET("/articles/:id", v1.GetArticle) // 为/articles/:id路由单独注册中间件
 
 		// 新建文章
-		apiv1.POST("/articles", v1.AddArticle)
+		apiv1.POST("/articles", v1.AddArticle) // 为路由注册中间件
 
 		// 更新指定文章
-		apiv1.PUT("/articles/:id", v1.EditArticle)
+		apiv1.PUT("/articles/:id", v1.EditArticle) // 为路由注册中间件
 
 		// 删除指定文章
 		apiv1.DELETE("/articles/:id", v1.DeleteArticle)

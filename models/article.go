@@ -52,12 +52,18 @@ func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
 		return nil
 	}
 */
+// ExistArticleByID 通过 id 查询文章是否存在
+// 参数 id 是查询条件
+// 返回值是 true 或 false
 func ExistArticleByID(id int) bool {
+	// 声明一个空的 article
 	var article Article
 	db.Select("id").Where("id = ?", id).First(&article)
 	return article.ID > 0
 }
 
+// GetArticleTotal 查询有多少条文章
+// maps 是查询条件 state 和 tag_id
 func GetArticleTotal(maps interface{}) (count int) {
 	db.Model(&Article{}).Where(maps).Count(&count)
 	return
@@ -78,7 +84,7 @@ func GetArticles(pageNum int, pageSize int, maps interface{}) (articles []Articl
 	return
 }
 
-// GetArticle 获取指定文章
+// GetArticle 获取指定文章的详细信息
 // 参数 id 表示文章id
 // 返回值是找到的文字 article
 func GetArticle(id int) (article Article) {
@@ -92,11 +98,17 @@ func GetArticle(id int) (article Article) {
 	return
 }
 
+// EditArticle 修改文章
+// 参数id是查询条件
+// 参数data是修改的数据
 func EditArticle(id int, data map[string]interface{}) bool {
 	db.Model(&Article{}).Where("id = ?", id).Updates(data)
 	return true
 }
 
+// AddArticle 添加一篇文章
+// 参数data 是添加的数据
+// 返回值是 ture
 func AddArticle(data map[string]interface{}) bool {
 	// v.(I)
 	// v 表示一个接口值，I 表示接口类型。
@@ -113,6 +125,9 @@ func AddArticle(data map[string]interface{}) bool {
 	return true
 }
 
+// DeleteArticle 删除文章
+// 参数id 是查询条件
+// 返回值 true
 func DeleteArticle(id int) bool {
 	db.Where("id = ?", id).Delete(Article{})
 	return true
