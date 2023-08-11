@@ -33,6 +33,12 @@ func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
 	return nil
 }
 
+// BeforeUpdate 删除时的回调方法
+func (article *Article) BeforeDelete(scope *gorm.Scope) error {
+	scope.SetColumn("DeletedOn", time.Now().Unix())
+	return nil
+}
+
 /*
 	用不了，后续研究
 
