@@ -1,7 +1,9 @@
 package routers
 
 import (
+	"go-gin-example/middleware/jwt"
 	"go-gin-example/pkg/setting"
+	"go-gin-example/routers/api"
 	v1 "go-gin-example/routers/api/v1"
 
 	"github.com/gin-gonic/gin"
@@ -27,9 +29,13 @@ func InitRouter() *gin.Engine {
 	// 给 r 使用() Recover 中间件
 	r.Use(gin.Recovery()) // 给 r 注册一个全局中间件
 
+	// 验证用户名和密码 (登录并签发 Token)
+	r.GET("/auth", api.GetAuth)
+
 	// 认证路由组
 	//
 	apiv1 := r.Group("/api/v1")
+	apiv1.Use(jwt.JWT()) // 接入中间件 JWT （中间件会解析 Token 并验证）
 	// 路由组中间件！ 在 apiv1 路由组中使用自定义创建的中间件
 	{
 		// 标签接口定义和编写
