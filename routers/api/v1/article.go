@@ -3,9 +3,9 @@ package v1
 import (
 	"go-gin-example/models"
 	"go-gin-example/pkg/e"
+	"go-gin-example/pkg/logging"
 	"go-gin-example/pkg/setting"
 	"go-gin-example/pkg/util"
-	"log"
 	"net/http"
 
 	"github.com/astaxie/beego/validation"
@@ -49,7 +49,8 @@ func GetArticle(c *gin.Context) {
 		// 参数没有通过表单验证
 		// 打印错误信息
 		for _, err := range valid.Errors {
-			log.Printf("err.Key:%s,err.message:%s", err.Key, err.Message)
+			// log.Printf("err.Key:%s,err.message:%s", err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	// 准备JSON
@@ -110,7 +111,8 @@ func GetArticles(c *gin.Context) {
 		// 参数没有通过表单验证
 		// 打印错误信息
 		for _, err := range valid.Errors {
-			log.Printf("err.Key:%s, err.message:%s", err.Key, err.Message)
+			// log.Printf("err.Key:%s, err.message:%s", err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -175,7 +177,8 @@ func AddArticle(c *gin.Context) {
 	} else {
 		// 表单验证未通过，打印错误
 		for _, err := range valid.Errors {
-			log.Printf("err.Key:%s, err.Message:%s", err.Key, err.Message)
+			// log.Printf("err.Key:%s, err.Message:%s", err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -274,7 +277,8 @@ func EditArticle(c *gin.Context) {
 		// 表单未通过验证
 		// 打印错误
 		for _, err := range valid.Errors {
-			log.Printf("err.Key:%s, err.Message:%s", err.Key, err.Message)
+			// log.Printf("err.Key:%s, err.Message:%s", err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
@@ -314,7 +318,8 @@ func DeleteArticle(c *gin.Context) {
 		// 参数未通过表单验证
 		// 打印错误
 		for _, err := range valid.Errors {
-			log.Printf("err.Key:%s, err.Message:%s", err.Key, err.Message)
+			// log.Printf("err.Key:%s, err.Message:%s", err.Key, err.Message)
+			logging.Info(err.Key, err.Message)
 		}
 	}
 	c.JSON(http.StatusOK, gin.H{
