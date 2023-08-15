@@ -1,12 +1,15 @@
 package routers
 
 import (
+	_ "go-gin-example/docs"
 	"go-gin-example/middleware/jwt"
 	"go-gin-example/pkg/setting"
 	"go-gin-example/routers/api"
 	v1 "go-gin-example/routers/api/v1"
 
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // InitRouter 初始化路由
@@ -29,6 +32,7 @@ func InitRouter() *gin.Engine {
 	// 给 r 使用() Recover 中间件
 	r.Use(gin.Recovery()) // 给 r 注册一个全局中间件
 
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	// 验证用户名和密码 (登录并签发 Token)
 	r.GET("/auth", api.GetAuth)
 
