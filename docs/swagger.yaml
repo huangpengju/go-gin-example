@@ -1,4 +1,4 @@
-host: localhost:8000
+host: 127.0.0.1:8000
 info:
   contact:
     name: 黄鹏举
@@ -11,7 +11,7 @@ info:
   title: Gin 搭建 Blog API's
   version: "1.0"
 paths:
-  /tags:
+  /api/v1/tags:
     get:
       parameters:
       - description: Name（标签名）
@@ -35,14 +35,36 @@ paths:
       - application/json
       responses:
         "200":
-          description: '{"code": 200,"data":{"lists":[{"id":1,"created_on": 1691659066,"modified_on":
-            0,"name": "2","created_by": "test","modified_by": "","state": 1}],"total":
-            1},"msg": "ok"}'
+          description: '{"code":200,"data":{},"msg":"ok"}'
           schema:
             type: string
       summary: 获取多个标签数据
       tags:
       - Tag
+  /auth:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: 账户
+        in: query
+        name: username
+        required: true
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{"code":200,"data":{},"msg":"ok"}'
+          schema:
+            type: string
+      summary: 获取 auth 授权（验证用户名和密码）
+      tags:
+      - Auth
+  /tags:
     post:
       consumes:
       - application/json

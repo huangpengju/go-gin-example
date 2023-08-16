@@ -20,7 +20,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/tags": {
+        "/api/v1/tags": {
             "get": {
                 "produces": [
                     "application/json"
@@ -58,13 +58,50 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"code\": 200,\"data\":{\"lists\":[{\"id\":1,\"created_on\": 1691659066,\"modified_on\": 0,\"name\": \"2\",\"created_by\": \"test\",\"modified_by\": \"\",\"state\": 1}],\"total\": 1},\"msg\": \"ok\"}",
+                        "description": "{\"code\":200,\"data\":{},\"msg\":\"ok\"}",
                         "schema": {
                             "type": "string"
                         }
                     }
                 }
-            },
+            }
+        },
+        "/auth": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "获取 auth 授权（验证用户名和密码）",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "账户",
+                        "name": "username",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":200,\"data\":{},\"msg\":\"ok\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/tags": {
             "post": {
                 "description": "AddTag 接口实现了添加一个标签的功能",
                 "consumes": [
@@ -114,7 +151,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8000",
+	Host:             "127.0.0.1:8000",
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Gin 搭建 Blog API's",

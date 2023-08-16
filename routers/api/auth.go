@@ -16,7 +16,15 @@ type auth struct {
 	Password string `valid:"Required;MaxSize(50)"`
 }
 
-// GetAuth 获取 auth 授权（验证用户名和密码）
+// GetAuth godoc
+// @Summary 获取 auth 授权（验证用户名和密码）
+// @Tags Auth
+// @Accept json
+// @Param username query string true "账户"
+// @Param password query string true "密码"
+// Produce json
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /auth [get]
 func GetAuth(c *gin.Context) {
 	// 获取URL参数
 	username := c.Query("username")

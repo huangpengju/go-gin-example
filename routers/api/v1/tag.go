@@ -13,9 +13,6 @@ import (
 	"github.com/unknwon/com"
 )
 
-// c *gin.Context 是 Gin 很重要的组成部分，可以理解为上下文
-// 它允许我们在中间件之间传递变量、管理流、验证请求的 JSON 和呈现 JSON 响应
-//
 // GetTags godoc
 // @Summary 获取多个标签数据
 // @Tags Tag
@@ -25,9 +22,12 @@ import (
 // @Param page query int false "Page（第几页）"
 // @Param token query string true "Token"
 // @Produce json
-// @Success 200 {string} json "{"code": 200,"data":{"lists":[{"id":1,"created_on": 1691659066,"modified_on": 0,"name": "2","created_by": "test","modified_by": "","state": 1}],"total": 1},"msg": "ok"}"
-// @Router /tags [get]
+// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
+// @Router /api/v1/tags [get]
 func GetTags(c *gin.Context) {
+	// c *gin.Context 是 Gin 很重要的组成部分，可以理解为上下文
+	// 它允许我们在中间件之间传递变量、管理流、验证请求的 JSON 和呈现 JSON 响应
+	//
 	// 参数说明
 	// name
 	// state

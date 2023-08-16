@@ -17,7 +17,7 @@ import (
 // @contact.name 黄鹏举
 // @contact.url https://github.com/huangpengju/go-gin-example
 
-// @host localhost:8000
+// @host 127.0.0.1:8000
 func main() {
 
 	// 接收配置好中间件的路由
