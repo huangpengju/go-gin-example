@@ -16,29 +16,36 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1/tags": {
+        "/tags": {
             "post": {
+                "description": "AddTag 接口实现了添加一篇文章的功能",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "AddTag 新增文章标签",
+                "tags": [
+                    "example"
+                ],
+                "summary": "新增文章标签",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "name",
+                        "description": "姓名",
                         "name": "name",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "integer",
-                        "description": "State",
+                        "description": "状态",
                         "name": "state",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "CreatedBy",
+                        "description": "创建人",
                         "name": "created_by",
                         "in": "query"
                     }

@@ -60,13 +60,20 @@ func GetTags(c *gin.Context) {
 	})
 }
 
-// @Summary AddTag 新增文章标签
+// @BasePath  /api/v1
+
+// AddTag godoc
+// @Summary 新增文章标签
+// @Schemes
+// @Description AddTag 接口实现了添加一篇文章的功能
+// @Tags example
+// @Accept json
+// @Param name query string true "姓名"
+// @Param state query int false "状态"
+// @Param created_by query int false "创建人"
 // @Produce json
-// @Param name query string true "name"
-// @Param state query int false "State"
-// @Param created_by query int false "CreatedBy"
 // @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
-// @Router /api/v1/tags [post]
+// @Router /tags [post]
 func AddTag(c *gin.Context) {
 	// 获取URL中的参数
 	name := c.Query("name")

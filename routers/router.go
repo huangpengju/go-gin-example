@@ -1,7 +1,7 @@
 package routers
 
 import (
-	_ "go-gin-example/docs"
+	docs "go-gin-example/docs"
 	"go-gin-example/middleware/jwt"
 	"go-gin-example/pkg/setting"
 	"go-gin-example/routers/api"
@@ -21,6 +21,9 @@ func InitRouter() *gin.Engine {
 	//  New返回一个新的空白引擎实例，没有附加任何中间件。
 	// 创建一个没有任何默认中间件的路由
 	r := gin.New()
+	// 设置自动生成 api 文档
+	docs.SwaggerInfo.BasePath = "/api/v1"
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	// 全局中间件
 	// Logger 中间件将日志写入 gin.DefaultWriter，即使你将 GIN_MODE 设置 release。
@@ -32,7 +35,6 @@ func InitRouter() *gin.Engine {
 	// 给 r 使用() Recover 中间件
 	r.Use(gin.Recovery()) // 给 r 注册一个全局中间件
 
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	// 验证用户名和密码 (登录并签发 Token)
 	r.GET("/auth", api.GetAuth)
 

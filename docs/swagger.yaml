@@ -1,19 +1,22 @@
 info:
   contact: {}
 paths:
-  /api/v1/tags:
+  /tags:
     post:
+      consumes:
+      - application/json
+      description: AddTag 接口实现了添加一篇文章的功能
       parameters:
-      - description: name
+      - description: 姓名
         in: query
         name: name
         required: true
         type: string
-      - description: State
+      - description: 状态
         in: query
         name: state
         type: integer
-      - description: CreatedBy
+      - description: 创建人
         in: query
         name: created_by
         type: integer
@@ -24,5 +27,7 @@ paths:
           description: '{"code":200,"data":{},"msg":"ok"}'
           schema:
             type: string
-      summary: AddTag 新增文章标签
+      summary: 新增文章标签
+      tags:
+      - example
 swagger: "2.0"
