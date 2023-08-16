@@ -13,9 +13,20 @@ import (
 	"github.com/unknwon/com"
 )
 
-// 获取多个文章标签
 // c *gin.Context 是 Gin 很重要的组成部分，可以理解为上下文
 // 它允许我们在中间件之间传递变量、管理流、验证请求的 JSON 和呈现 JSON 响应
+//
+// GetTags godoc
+// @Summary 获取多个标签数据
+// @Tags Tag
+// Accept json
+// @Param name query string false "Name（标签名）"
+// @Param state query int false "State（标签状态）"
+// @Param page query int false "Page（第几页）"
+// @Param token query string true "Token"
+// @Produce json
+// @Success 200 {string} json "{"code": 200,"data":{"lists":[{"id":1,"created_on": 1691659066,"modified_on": 0,"name": "2","created_by": "test","modified_by": "","state": 1}],"total": 1},"msg": "ok"}"
+// @Router /tags [get]
 func GetTags(c *gin.Context) {
 	// 参数说明
 	// name
@@ -60,17 +71,14 @@ func GetTags(c *gin.Context) {
 	})
 }
 
-// @BasePath  /api/v1
-
 // AddTag godoc
-// @Summary 新增文章标签
-// @Schemes
-// @Description AddTag 接口实现了添加一篇文章的功能
-// @Tags example
+// @Summary 新增文章的标签
+// @Description AddTag 接口实现了添加一个标签的功能
+// @Tags Tag
 // @Accept json
-// @Param name query string true "姓名"
-// @Param state query int false "状态"
-// @Param created_by query int false "创建人"
+// @Param name query string true "Name（标签名）"
+// @Param state query int false "State（标签状态）"
+// @Param created_by query int false "CreatedBy（创建人）"
 // @Produce json
 // @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
 // @Router /tags [post]

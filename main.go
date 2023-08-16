@@ -7,6 +7,17 @@ import (
 	"net/http"
 )
 
+// @title Gin 搭建 Blog API's
+// @version 1.0
+// @description 实现了 Tag 的增删改查
+// @description 实现了 Article 的增删改查
+// @description 实现了 token 签发和鉴权
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name 黄鹏举
+// @contact.url https://github.com/huangpengju/go-gin-example
+
+// @host localhost:8000
 func main() {
 
 	// 接收配置好中间件的路由

@@ -21,8 +21,12 @@ func InitRouter() *gin.Engine {
 	//  New返回一个新的空白引擎实例，没有附加任何中间件。
 	// 创建一个没有任何默认中间件的路由
 	r := gin.New()
-	// 设置自动生成 api 文档
+
+	// api 文档中显示的路由的基础路径
+	// docs导出SwaggerInfo变量，使用该变量可以通过编码的方式设置标题、描述、版本、主机和基础路径
 	docs.SwaggerInfo.BasePath = "/api/v1"
+	docs.SwaggerInfo.Schemes = []string{"http", "https"}
+	// 设置自动生成 api 文档其他信息
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	// 全局中间件

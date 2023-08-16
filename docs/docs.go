@@ -10,15 +10,63 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "黄鹏举",
+            "url": "https://github.com/huangpengju/go-gin-example"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
         "/tags": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tag"
+                ],
+                "summary": "获取多个标签数据",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name（标签名）",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "State（标签状态）",
+                        "name": "state",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page（第几页）",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Token",
+                        "name": "token",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200,\"data\":{\"lists\":[{\"id\":1,\"created_on\": 1691659066,\"modified_on\": 0,\"name\": \"2\",\"created_by\": \"test\",\"modified_by\": \"\",\"state\": 1}],\"total\": 1},\"msg\": \"ok\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
             "post": {
-                "description": "AddTag 接口实现了添加一篇文章的功能",
+                "description": "AddTag 接口实现了添加一个标签的功能",
                 "consumes": [
                     "application/json"
                 ],
@@ -26,26 +74,26 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "Tag"
                 ],
-                "summary": "新增文章标签",
+                "summary": "新增文章的标签",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "姓名",
+                        "description": "Name（标签名）",
                         "name": "name",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "integer",
-                        "description": "状态",
+                        "description": "State（标签状态）",
                         "name": "state",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "创建人",
+                        "description": "CreatedBy（创建人）",
                         "name": "created_by",
                         "in": "query"
                     }
@@ -65,12 +113,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
+	Version:          "1.0",
+	Host:             "localhost:8000",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "Gin 搭建 Blog API's",
+	Description:      "实现了 Tag 的增删改查\n实现了 Article 的增删改查\n实现了 token 签发和鉴权",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
