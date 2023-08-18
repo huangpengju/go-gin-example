@@ -40,9 +40,11 @@ func GenerateToken(username, password string) (string, error) {
 
 	// 创建一个新 token ，采用签名方法
 	// NewWithClaims(method SigningMethod, claims Claims)，method对应着SigningMethodHMAC struct{}，其包含SigningMethodHS256、SigningMethodHS384、SigningMethodHS512三种crypto.Hash方案
+	// 返回 *Token
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// 获取完整的 token
 	// func (t *Token) SignedString(key interface{}) 该方法内部生成签名字符串，再用于获取完整、已签名的token
+	// 返回 string
 	token, err := tokenClaims.SignedString(jwtSecret)
 
 	return token, err

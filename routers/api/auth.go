@@ -36,6 +36,7 @@ func GetAuth(c *gin.Context) {
 	// 声明 auth 并赋值
 	a := auth{Username: username, Password: password}
 	// 验证 auth 结构体
+	// Valid 验证一个结构体，参数必须是结构体或者结构体指针
 	ok, _ := valid.Valid(&a)
 
 	// 声明data空映射
@@ -45,7 +46,7 @@ func GetAuth(c *gin.Context) {
 
 	// 判断验证 auth 是否通过
 	if ok {
-		// 查询数据库，如果auth存在返回true
+		// 查询数据库，如果用户存在 存在返回true
 		isExist := models.CheckAuth(username, password)
 		if isExist {
 			// 登陆成功，然后签发 Token
